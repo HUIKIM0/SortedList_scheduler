@@ -78,6 +78,7 @@ namespace List_Detail
             this.tboxDataInsert.Name = "tboxDataInsert";
             this.tboxDataInsert.Size = new System.Drawing.Size(152, 25);
             this.tboxDataInsert.TabIndex = 2;
+            this.tboxDataInsert.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tboxDataInsert_KeyDown);
             // 
             // numPosition
             // 
@@ -163,11 +164,11 @@ namespace List_Detail
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(254, 21);
+            this.label5.Location = new System.Drawing.Point(224, 21);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(37, 15);
+            this.label5.Size = new System.Drawing.Size(82, 15);
             this.label5.TabIndex = 11;
-            this.label5.Text = "검색";
+            this.label5.Text = "변경대상값";
             // 
             // tboxChangeOld
             // 

@@ -13,9 +13,8 @@ namespace List_Detail
     public partial class Form1 : Form
     {
 
-        List<object> oList = new List<object>();  //오브젝트(뭘 넣어도 OK) 형태의 List전역으로 선언
+        List<object> oList = new List<object>();  // Main으로 사용할 object List
 
-        List<int> iList = new List<int>();
 
         public Form1()
         {
@@ -28,13 +27,51 @@ namespace List_Detail
             DataAdd();
         }
 
-        private void btnRemove_Click(object sender, EventArgs e)
+        private void tboxDataInsert_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Enter)
+            {
+                DataAdd();
+            }
 
         }
 
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            if (lboxList.Text == tboxDataInsert.Text)   // 동일한 text -> 삭제
+            {
+                oList.Remove(tboxDataInsert.Text);
+            }
+
+            else if (numPosition.Value == -1)
+            {
+                oList.Remove(tboxDataInsert.Text);  //Remove -> List 내의 해당내용★ 삭제
+            }
+
+            else
+            {
+                oList.RemoveAt((int)numPosition.Value);  //RemoveAt -> List내의 해당 index삭제★
+            }
+
+            lboxList.DataSource = oList.ToList<object>();
+            lboxNoCreate();
+            oList_Detail();
+
+
+
+        }
+
+
+        // 변경대상값 입력 후 변경하길 원하는 문자로 입력 ->버튼클릭
         private void btnChange_Click(object sender, EventArgs e)
         {
+            List<object> ListChange = new List<object>();  //바뀐 oList값을 담을
+            ListChange = oList.ConvertAll<object>(s => s.ToString().Replace(tboxChangeOld.Text, tboxChangeNew.Text));   // List의 값을 변경 해서 새로운 List를 만듬
+
+            
+            lboxChangeList.DataSource = ListChange.ToList<object>();  
+            oChangeList_Data(ListChange); 
 
         }
 
@@ -101,5 +138,33 @@ Data : {oListstrData}
             tboxDetail.Text = strListDetail;
 
         }
+
+
+
+        // 수정 List_Detail tbox. 원본
+        private void oChangeList_Data(List<object> oChangeList)
+        {
+            tboxDetail_Change.Text = null;
+
+            int iListCount = oChangeList.Count;
+            int ilistCapacity = oChangeList.Capacity;
+            string strListData = string.Join(", ", oChangeList);
+
+            //List<object> oTEST = oChangeList.GetRange(3, 2);      // List에서 해당 위치에서 지정 범위의 값을 추출
+            //oChangeList.Sort();          // List 정렬
+
+            string strListDetail = $@"
+    Capacity : {ilistCapacity}
+    Count : {iListCount}
+    Data : {strListData}
+    ";
+
+            tboxDetail_Change.Text = strListDetail;
+
+
+
+        }
+
+
     }
 }
