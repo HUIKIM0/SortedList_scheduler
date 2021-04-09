@@ -63,7 +63,7 @@ namespace List_Detail
         }
 
 
-        // 변경대상값 입력 후 변경하길 원하는 문자로 입력 ->버튼클릭
+        // tboxChangeOld에 입력 후 tboxChangeNew에 변경 문자 입력 ->버튼클릭
         private void btnChange_Click(object sender, EventArgs e)
         {
             List<object> ListChange = new List<object>();  //바뀐 oList값을 담을
