@@ -103,14 +103,18 @@ namespace List_Detail
         // lboxNo (index위치) 보여주기 위한 함수
         private void lboxNoCreate()
         {
-            List<int> iList = (Enumerable.Repeat(0, oList.Count)).ToList<int>();   // List를 선언 하면서 초기화
+            // oList를 가져와서 iList에 int형태로 넣고 0으로 다 초기화
+            List<int> iList = (Enumerable.Repeat(0, oList.Count)).ToList<int>();
 
+            //List<object> iiList = new List<object>(oList);   초기화 안 해주고 걍 oList 넣어서 써줘도 무방하긴 함
 
-            for (int i =0; i < iList.Count; i++)
+            for (int i = 0; i < iList.Count; i++)
             {
-                iList[i] = i;
+                iList[i] = i + 1;  
             }
-            lboxNo.DataSource = iList.ToList<int>();
+            lboxNo.DataSource = iList.ToList();
+
+
         }
 
 
@@ -164,7 +168,6 @@ Data : {oListstrData}
 
 
         }
-
 
     }
 }
