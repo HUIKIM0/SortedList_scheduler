@@ -33,6 +33,7 @@ namespace WindowsFormsApp1
             this.tboxScheduler = new System.Windows.Forms.TextBox();
             this.btnScheduler = new System.Windows.Forms.Button();
             this.lboxScheduler = new System.Windows.Forms.ListBox();
+            this.btnRemove = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // mcScheduler
@@ -55,9 +56,9 @@ namespace WindowsFormsApp1
             // 
             this.btnScheduler.Location = new System.Drawing.Point(18, 413);
             this.btnScheduler.Name = "btnScheduler";
-            this.btnScheduler.Size = new System.Drawing.Size(248, 41);
+            this.btnScheduler.Size = new System.Drawing.Size(117, 41);
             this.btnScheduler.TabIndex = 2;
-            this.btnScheduler.Text = "일정 등록 하기";
+            this.btnScheduler.Text = "일정 등록";
             this.btnScheduler.UseVisualStyleBackColor = true;
             this.btnScheduler.Click += new System.EventHandler(this.btnScheduler_Click);
             // 
@@ -70,11 +71,22 @@ namespace WindowsFormsApp1
             this.lboxScheduler.Size = new System.Drawing.Size(326, 379);
             this.lboxScheduler.TabIndex = 3;
             // 
+            // btnRemove
+            // 
+            this.btnRemove.Location = new System.Drawing.Point(149, 413);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(117, 41);
+            this.btnRemove.TabIndex = 4;
+            this.btnRemove.Text = "일정 삭제";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(626, 473);
+            this.ClientSize = new System.Drawing.Size(624, 473);
+            this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.lboxScheduler);
             this.Controls.Add(this.btnScheduler);
             this.Controls.Add(this.tboxScheduler);
@@ -92,6 +104,7 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.TextBox tboxScheduler;
         private System.Windows.Forms.Button btnScheduler;
         private System.Windows.Forms.ListBox lboxScheduler;
+        private System.Windows.Forms.Button btnRemove;
     }
 }
 
