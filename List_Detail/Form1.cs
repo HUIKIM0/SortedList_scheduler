@@ -87,7 +87,16 @@ namespace List_Detail
             }
             else
             {
-                oList.Insert((int)numPosition.Value, tboxDataInsert.Text);  // List의 해당 index에, text내용 넣기 
+                try
+                {
+                    oList.Insert((int)numPosition.Value -1, tboxDataInsert.Text);  // List의 해당 index에, text내용 넣기 
+                }
+                catch (Exception)
+                {
+
+                    MessageBox.Show("존재하는/순차적인 Index범위 내에서 정보를 입력하세요");
+                }
+               
             }
             
 
