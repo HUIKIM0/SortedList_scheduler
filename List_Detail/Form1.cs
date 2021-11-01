@@ -22,11 +22,13 @@ namespace List_Detail
         }
 
 
+        //추가 버튼
         private void btnAdd_Click(object sender, EventArgs e)
         {
             DataAdd();
         }
 
+        //tbox에 입력하고 엔터
         private void tboxDataInsert_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -37,6 +39,7 @@ namespace List_Detail
         }
 
 
+        //삭제 버튼
         private void btnRemove_Click(object sender, EventArgs e)
         {
             if (lboxList.Text == tboxDataInsert.Text)   // 동일한 text -> 삭제
@@ -44,38 +47,41 @@ namespace List_Detail
                 oList.Remove(tboxDataInsert.Text);
             }
 
-            else if (numPosition.Value == -1)
+            else if (numPosition.Value == -1)     //위치값 지정 X 디폴트 상태
             {
-                oList.Remove(tboxDataInsert.Text);  //Remove -> List 내의 해당내용★ 삭제
+                oList.Remove(tboxDataInsert.Text);  
             }
 
-            else
+
+            else    //위치 numPosition 값으로 삭제
             {
-                oList.RemoveAt((int)numPosition.Value);  //RemoveAt -> List내의 해당 index삭제★
+                oList.RemoveAt((int)numPosition.Value);  
             }
+
 
             lboxList.DataSource = oList.ToList<object>();
             lboxNoCreate();
             oList_Detail();
 
 
-
         }
 
 
-        // tboxChangeOld에 입력 후 tboxChangeNew에 변경 문자 입력 ->버튼클릭
+        // tboxChangeOld에 입력 후 tboxChangeNew에 변경할 내용 입력 ->버튼클릭
         private void btnChange_Click(object sender, EventArgs e)
         {
-            List<object> ListChange = new List<object>();  //바뀐 oList값을 담을
+            List<object> ListChange = new List<object>();  //바뀐 oList값을 담을 List 신규생성
             ListChange = oList.ConvertAll<object>(s => s.ToString().Replace(tboxChangeOld.Text, tboxChangeNew.Text));   // List의 값을 변경 해서 새로운 List를 만듬
 
             
-            lboxChangeList.DataSource = ListChange.ToList<object>();  
-            oChangeList_Data(ListChange); 
+            lboxChangeList.DataSource = ListChange.ToList<object>();
+            oChangeList_Data(ListChange);
 
         }
 
 
+
+        #region function
 
         // 값 추가 함수
         private void DataAdd()
@@ -89,7 +95,7 @@ namespace List_Detail
             {
                 try
                 {
-                    oList.Insert((int)numPosition.Value -1, tboxDataInsert.Text);  // List의 해당 index에, text내용 넣기 
+                    oList.Insert((int)numPosition.Value, tboxDataInsert.Text);  // List의 해당 index에, text내용 넣기 
                 }
                 catch (Exception)
                 {
@@ -98,9 +104,11 @@ namespace List_Detail
                 }
                
             }
-            
 
-            lboxList.DataSource = oList.ToList<object>(); // .DataSource ->데이터값 전부 .ToList ->반복문 안쓰고 list대입(복사)
+
+            //lboxList.DataSource = oList.ToList();
+            lboxList.DataSource = oList.ToList<object>(); // .DataSource ->List같은 값이 많이 들어간 요소
+                                                          // 데이터값 전부 반복문 안쓰고 넣는 방법
 
             lboxNoCreate();
             oList_Detail();
@@ -112,22 +120,23 @@ namespace List_Detail
         // lboxNo (index위치) 보여주기 위한 함수
         private void lboxNoCreate()
         {
-            // oList를 가져와서 iList에 int형태로 넣고 0으로 다 초기화
+            // oList를 가져와서 iList에 int형태로 넣고 0으로 다 !초기화!
             List<int> iList = (Enumerable.Repeat(0, oList.Count)).ToList<int>();
 
             //List<object> iiList = new List<object>(oList);   초기화 안 해주고 걍 oList 넣어서 써줘도 무방하긴 함
 
             for (int i = 0; i < iList.Count; i++)
             {
-                iList[i] = i + 1;  
+                iList[i] = i;   //iList[i] = i+1;    
             }
             lboxNo.DataSource = iList.ToList();
+            
 
 
         }
 
 
-        //tbox에 찍어줄 List에 대한 detail 내용
+        //원본List_Detail 내용 보여주는 함수
         private void oList_Detail()
         {
             tboxDetail.Text = null;
@@ -154,7 +163,7 @@ Data : {oListstrData}
 
 
 
-        // 수정 List_Detail tbox. 원본
+        // 수정 List_Detail 내용 보여주는 함수
         private void oChangeList_Data(List<object> oChangeList)
         {
             tboxDetail_Change.Text = null;
@@ -177,6 +186,7 @@ Data : {oListstrData}
 
 
         }
+        #endregion
 
     }
 }
