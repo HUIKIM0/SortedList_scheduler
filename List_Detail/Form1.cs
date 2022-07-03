@@ -42,27 +42,27 @@ namespace List_Detail
         //삭제 버튼
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            if (lboxList.Text == tboxDataInsert.Text)   // 동일한 text -> 삭제
+
+            if (numPosition.Value == -1)     //위치값 지정 X 디폴트 상태 text 써준 내용 삭제
             {
                 oList.Remove(tboxDataInsert.Text);
             }
 
-            else if (numPosition.Value == -1)     //위치값 지정 X 디폴트 상태
+            else if(numPosition.Value>=0)   //위치 numPosition 값으로 삭제
             {
-                oList.Remove(tboxDataInsert.Text);  
+                int icount = oList.Count;  
+                for (int i = 0; i < icount; i++)
+                {
+                    if(i == numPosition.Value)
+                    {
+                        oList.RemoveAt((int)numPosition.Value);
+                    }
+                }
             }
-
-
-            else    //위치 numPosition 값으로 삭제
-            {
-                oList.RemoveAt((int)numPosition.Value);  
-            }
-
 
             lboxList.DataSource = oList.ToList<object>();
             lboxNoCreate();
             oList_Detail();
-
 
         }
 
@@ -107,7 +107,7 @@ namespace List_Detail
 
 
             //lboxList.DataSource = oList.ToList();
-            lboxList.DataSource = oList.ToList<object>(); // .DataSource ->List같은 값이 많이 들어간 요소
+            lboxList.DataSource = oList.ToList<object>(); // .DataSource ->List같은 값이 많이 들어간 요소 통째로 가져옴
                                                           // 데이터값 전부 반복문 안쓰고 넣는 방법
 
             lboxNoCreate();
@@ -127,7 +127,8 @@ namespace List_Detail
 
             for (int i = 0; i < iList.Count; i++)
             {
-                iList[i] = i;   //iList[i] = i+1;    
+                //iList[i] = i+1;
+                iList[i] = i;
             }
             lboxNo.DataSource = iList.ToList();
             
