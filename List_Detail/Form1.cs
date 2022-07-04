@@ -46,6 +46,7 @@ namespace List_Detail
             if (numPosition.Value == -1)     //위치값 지정 X 디폴트 상태 text 써준 내용 삭제
             {
                 oList.Remove(tboxDataInsert.Text);
+                numPosition.Value = -1;
             }
 
             else if(numPosition.Value>=0)   //위치 numPosition 값으로 삭제
@@ -56,9 +57,11 @@ namespace List_Detail
                     if(i == numPosition.Value)
                     {
                         oList.RemoveAt((int)numPosition.Value);
+                        numPosition.Value = -1;
                     }
                 }
             }
+
 
             lboxList.DataSource = oList.ToList<object>();
             lboxNoCreate();
@@ -86,26 +89,28 @@ namespace List_Detail
         // 값 추가 함수
         private void DataAdd()
         {
+            if (!string.IsNullOrEmpty(tboxDataInsert.Text))
+            {
+                if (numPosition.Value == -1)  // -1은 배열에 존재하지 않는 포지션(사용자가 indext 선택 안한거)
+                {
+                    oList.Add(tboxDataInsert.Text);  // List 끝에 값 추가
+                }
+                else
+                {
+                    try
+                    {
+                        oList.Insert((int)numPosition.Value, tboxDataInsert.Text);  // List의 해당 index에, text내용 넣기 
+                    }
+                    catch (Exception)
+                    {
+
+                        MessageBox.Show("존재하는/순차적인 Index범위 내에서 정보를 입력하세요");
+                    }
+
+                }
+            }
             
-            if(numPosition.Value == -1)  // -1은 배열에 존재하지 않는 포지션(사용자가 indext 선택 안한거)
-            {
-                oList.Add(tboxDataInsert.Text);  // List 끝에 값 추가
-            }
-            else
-            {
-                try
-                {
-                    oList.Insert((int)numPosition.Value, tboxDataInsert.Text);  // List의 해당 index에, text내용 넣기 
-                }
-                catch (Exception)
-                {
-
-                    MessageBox.Show("존재하는/순차적인 Index범위 내에서 정보를 입력하세요");
-                }
-               
-            }
-
-
+           
             //lboxList.DataSource = oList.ToList();
             lboxList.DataSource = oList.ToList<object>(); // .DataSource ->List같은 값이 많이 들어간 요소 통째로 가져옴
                                                           // 데이터값 전부 반복문 안쓰고 넣는 방법
