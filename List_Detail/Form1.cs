@@ -76,7 +76,6 @@ namespace List_Detail
             List<object> ListChange = new List<object>();  //바뀐 oList값을 담을 List 신규생성
             ListChange = oList.ConvertAll<object>(s => s.ToString().Replace(tboxChangeOld.Text, tboxChangeNew.Text));   // List의 값을 변경 해서 새로운 List를 만듬
 
-            
             lboxChangeList.DataSource = ListChange.ToList<object>();
             oChangeList_Data(ListChange);
 
@@ -126,9 +125,9 @@ namespace List_Detail
         private void lboxNoCreate()
         {
             // oList를 가져와서 iList에 int형태로 넣고 0으로 다 !초기화!
-            List<int> iList = (Enumerable.Repeat(0, oList.Count)).ToList<int>();
+            // List<int> iList = (Enumerable.Repeat(0, oList.Count)).ToList<int>();
 
-            //List<object> iiList = new List<object>(oList);   초기화 안 해주고 걍 oList 넣어서 써줘도 무방하긴 함
+            List<object> iList = new List<object>(oList);   
 
             for (int i = 0; i < iList.Count; i++)
             {
@@ -137,7 +136,6 @@ namespace List_Detail
             }
             lboxNo.DataSource = iList.ToList();
             
-
 
         }
 
